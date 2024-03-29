@@ -26,12 +26,12 @@ function forEach(array, fn) {
    const newArray = map([1, 2, 3], (el) => el ** 2);
    console.log(newArray); // выведет [1, 4, 9]
  */
-function map(el, fn) {
-  const newEl = [];
-  for (let i = 0; i < el.length; i++) {
-    newEl.push(fn(el[i], i, el));
+function map(arr, fn) {
+  const newArr = [];
+  for (let i = 0; i < arr.length; i++) {
+    newArr.push(fn(arr[i], i, arr));
   }
-  return newEl;
+  return newArr;
 }
 
 /*

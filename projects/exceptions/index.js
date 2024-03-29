@@ -29,14 +29,12 @@ function isAllTrue(array, fn) {
     throw new Error('fn is not a function');
   }
 
-  let flag = true;
   for (let i = 0; i < array.length; i++) {
     if (!fn(array[i])) {
-      flag = false;
-      break;
+      return false;
     }
   }
-  return flag;
+  return true;
 }
 
 /*
@@ -68,14 +66,12 @@ function isSomeTrue(array, fn) {
     throw new Error('fn is not a function');
   }
 
-  let flag = false;
   for (let i = 0; i < array.length; i++) {
     if (fn(array[i])) {
-      flag = true;
-      break;
+      return true;
     }
   }
-  return flag;
+  return false;
 }
 
 /*
