@@ -11,6 +11,9 @@
    createDivWithText('loftschool') // создаст элемент div, поместит в него 'loftschool' и вернет созданный элемент
  */
 function createDivWithText(text) {
+  const newDiv = document.createElement('div');
+  newDiv.textContent = text;
+  return newDiv;
 }
 
 /*
@@ -22,6 +25,7 @@ function createDivWithText(text) {
    prepend(document.querySelector('#one'), document.querySelector('#two')) // добавит элемент переданный первым аргументом в начало элемента переданного вторым аргументом
  */
 function prepend(what, where) {
+  where.prepend(what);
 }
 
 /*
@@ -44,6 +48,15 @@ function prepend(what, where) {
    findAllPSiblings(document.body) // функция должна вернуть массив с элементами div и span т.к. следующим соседом этих элементов является элемент с тегом P
  */
 function findAllPSiblings(where) {
+  const result = [];
+
+  for (let i = 0; i < where.children.length; i++) {
+    const child = where.children[i];
+    if (child.nextElementSibling && child.nextElementSibling.tagName === 'P') {
+      result.push(child);
+    }
+  }
+  return result;
 }
 
 /*
@@ -66,10 +79,9 @@ function findAllPSiblings(where) {
 function findError(where) {
   const result = [];
 
-  for (const child of where.childNodes) {
+  for (const child of where.children) {
     result.push(child.textContent);
   }
-
   return result;
 }
 
@@ -86,6 +98,11 @@ function findError(where) {
    должно быть преобразовано в <div></div><p></p>
  */
 function deleteTextNodes(where) {
+  for (const child of where.childNodes) {
+    if (child.nodeType === Node.TEXT_NODE) {
+      child.remove();
+    }
+  }
 }
 
 /*
@@ -109,6 +126,29 @@ function deleteTextNodes(where) {
    }
  */
 function collectDOMStat(root) {
+  const stat = {
+    texts: 0,
+    tags: {},
+    classes: {},
+  };
+
+  function parseTree(node) {
+    if (node.nodeType === Node.TEXT_NODE) {
+      stat.texts += 1;
+    } else if (node.nodeType === Node.ELEMENT_NODE) {
+      const tagName = node.tagName.toUpperCase();
+      stat.tags[tagName] ??= 0;
+      stat.tags[tagName]++;
+
+      node.classList.forEach((className) => {
+        stat.classes[className] ??= 0;
+        stat.classes[className]++;
+      });
+    }
+    node.childNodes.forEach(parseTree);
+  }
+  root.childNodes.forEach(parseTree);
+  return stat;
 }
 
 export {
