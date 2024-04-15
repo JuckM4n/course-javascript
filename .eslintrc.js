@@ -13,6 +13,9 @@ module.exports = {
     browser: true,
     node: true,
   },
+  globals: {
+    VK: true,
+  },
   rules: {
     'prettier/prettier': 'error',
     'no-undef': 'error',

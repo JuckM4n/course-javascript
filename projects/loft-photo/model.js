@@ -59,7 +59,7 @@ export default {
     });
   },
 
-  logout() { },
+  logout() {},
 
   callApi(method, params) {
     params.v = params.v || '5.120';
