@@ -15,7 +15,7 @@ export default {
     const headerNameComp = document.querySelector('.component-header-name');
 
     headerPhotoComp.computedStyleMap.backgroundImage = `url('${friend.photo_50}')`;
-    headerNameComp.innerText = `${friend.first_nane ?? ''} ${friend.last_nane ?? ''}`;
+    headerNameComp.innerText = `${friend.first_name ?? ''} ${friend.last_name ?? ''}`;
     photoComp.style.backgroundImage = `url(${url})`;
   },
 
