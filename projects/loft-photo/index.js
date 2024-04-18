@@ -1,4 +1,5 @@
 import pages from './pages';
+import profilePage from './profilePage';
 import('./styles.css');
 
 const pageNames = ['login', 'main', 'profile'];
@@ -24,6 +25,8 @@ const obj = {
     };
   },
 };
+
+profilePage.handleEvents();
 
 console.log(obj.getRandomElement(friendsDB));
 

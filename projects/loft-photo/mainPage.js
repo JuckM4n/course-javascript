@@ -1,6 +1,7 @@
-// eslint-disable-next-line no-unused-vars
+/* eslint-disable no-unused-vars */
 import pages from './pages';
 import model from './model';
+import profilePage from './profilePage';
 
 export default {
   async getNextPhoto() {
