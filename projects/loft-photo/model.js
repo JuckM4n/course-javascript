@@ -8,8 +8,7 @@ export default {
       return null;
     }
     const index = Math.round(Math.random() * (array.length - 1));
-
-    return array[index];
+    return array(index);
   },
 
   async getNextPhoto() {
@@ -39,6 +38,7 @@ export default {
 
   async init() {
     this.photoCache = {};
+
     this.friends = await this.getFriends();
     [this.me] = await this.getUsers();
   },
@@ -51,6 +51,7 @@ export default {
 
       VK.Auth.login((response) => {
         if (response.session) {
+          this.token = response.session.sid;
           resolve(response);
         } else {
           console.error(response);
@@ -60,15 +61,9 @@ export default {
     });
   },
 
-  logout() {
-    return new Promise((resolve) => {
-      return VK.Auth.revokeGrants(resolve);
-    });
-  },
-
+  photoCache: {},
   callApi(method, params) {
-    params.v = params.v || '5.120';
-
+    params.v = params.v || '5,199';
     return new Promise((resolve, reject) => {
       VK.api(method, params, (response) => {
         if (response.error) {
@@ -84,30 +79,14 @@ export default {
     const params = {
       fields: ['photo_50', 'photo_100'],
     };
-
     return this.callApi('friends.get', params);
   },
-
-  getUsers(ids) {
-    const params = {
-      fields: ['photo_50', 'photo_100'],
-    };
-
-    if (ids) {
-      params.user_ids = ids;
-    }
-
-    return this.callApi('users.get', params);
-  },
-
   getPhotos(owner) {
     const params = {
       owner_id: owner,
     };
-
     return this.callApi('photos.getAll', params);
   },
-
   async getFriendPhotos(id) {
     let photos = this.photoCache[id];
 
@@ -120,5 +99,20 @@ export default {
     this.photoCache[id] = photos;
 
     return photos;
+  },
+  logout() {
+    return new Promise((resolve) => VK.Auth.revokeGrants(resolve));
+  },
+
+  getUsers(ids) {
+    const params = {
+      fields: ['photo_50', 'photo_100'],
+    };
+
+    if (ids) {
+      params.user_ids = ids;
+    }
+
+    return this.callApi('users.get', params);
   },
 };

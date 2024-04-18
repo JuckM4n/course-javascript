@@ -6,15 +6,16 @@ const pagesMap = {
 
 export default {
   openPage(name) {
-    const page = pagesMap[name];
-    if (page) {
-      for (const pageName in pagesMap) {
-        if (pagesMap[pageName] === name) {
-          document.querySelector(pagesMap[pageName]).classList.remove('hidden');
-        } else {
-          document.querySelector(pagesMap[pageName]).classList.add('hidden');
-        }
-      }
-    }
+    const selector = pagesMap[name];
+    const click_block = document.querySelector(selector);
+    const logBlock = document.querySelector('.page-login');
+    const mainBlock = document.querySelector('.page-main');
+    const profileBlock = document.querySelector('.page-profile');
+
+    logBlock.classList.add('hidden');
+    mainBlock.classList.add('hidden');
+    profileBlock.classList.add('hidden');
+
+    click_block.classList.remove('hidden');
   },
 };
