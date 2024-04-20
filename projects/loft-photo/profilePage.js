@@ -6,23 +6,20 @@ export default {
   async setUser(user) {
     const photoComp = document.querySelector('.component-user-info-photo');
     const nameComp = document.querySelector('.component-user-info-name');
-    const photosComp = document.querySelector('.component-user-photo');
-
+    const photosComp = document.querySelector('.component-user-photos');
     const photos = await model.getPhotos(user.id);
 
     this.user = user;
 
     photoComp.style.backgroundImage = `url('${user.photo_100}')`;
     nameComp.innerText = `${user.first_name ?? ''} ${user.last_name ?? ''}`;
-
     photosComp.innerHTML = '';
 
     for (const photo of photos.items) {
-      const size = model.findeSize(photo);
+      const size = model.findSize(photo);
       const element = document.createElement('div');
 
       element.classList.add('component-user-photo');
-
       element.dataset.id = photo.id;
       element.style.backgroundImage = `url(${size.url})`;
       photosComp.append(element);

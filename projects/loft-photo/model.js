@@ -1,6 +1,10 @@
 const PERM_FRIENDS = 2;
 const PERM_PHOTOS = 4;
-const APP_ID = 51901591;
+//Мой VKApp_ID
+// const APP_ID = 51901591;
+
+//Преподовательский VKApp_ID
+const APP_ID = 5350105;
 
 export default {
   getRandomElement(array) {
@@ -8,7 +12,7 @@ export default {
       return null;
     }
     const index = Math.round(Math.random() * (array.length - 1));
-    return array(index);
+    return array[index];
   },
 
   async getNextPhoto() {
@@ -63,7 +67,7 @@ export default {
 
   photoCache: {},
   callApi(method, params) {
-    params.v = params.v || '5,199';
+    params.v = params.v || '5.199';
     return new Promise((resolve, reject) => {
       VK.api(method, params, (response) => {
         if (response.error) {
