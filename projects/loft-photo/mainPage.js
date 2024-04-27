@@ -1,7 +1,7 @@
 import pages from './pages';
 import model from './model';
 import profilePage from './profilePage';
-import commentsTemplate from './commentsTemplate';
+import commentsTemplate from './commentsTemplate.html.hbs';
 
 export default {
   async getNextPhoto() {
