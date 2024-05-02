@@ -64,7 +64,7 @@ export default {
     document
       .querySelector('.component-footer-container-social-likes')
       .addEventListener('click', async () => {
-        const { likes, liked } = await model.likePhoto(this.photoId);
+        const { likes, liked } = await model.like(this.photoId);
         this.setLikes(likes, liked);
       });
 
